@@ -66,7 +66,7 @@ git clone https://github.com/Zhalslar/astrbot_plugin_buttons
 - 本插件仅供学习交流，使用此插件产生的一切后果由使用者承担。
 - 想第一时间得到反馈的可以来作者的插件反馈群（QQ群）：460973561
 
-# 🤝 特别感谢
+## 🤝 特别感谢
 
 感谢TianRu大佬的开源的发包代码: [https://github.com/HDTianRu/Packet-plugin](https://github.com/HDTianRu/Packet-plugin)
 
