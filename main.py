@@ -5,6 +5,7 @@ import string
 
 from aiocqhttp import CQHttp
 from astrbot.api.star import Context, Star, register
+from astrbot.core.config.astrbot_config import AstrBotConfig
 from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import (
     AiocqhttpMessageEvent,
 )
@@ -21,40 +22,44 @@ from .proto import ProtobufEncoder
     "https://github.com/Zhalslar/astrbot_plugin_buttons",
 )
 class ButtonPlugin(Star):
-    def __init__(self, context: Context):
+    def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
         self.encoder = ProtobufEncoder()
+        self.button_style = config.get("button_style", "1")  # 按钮样式
+        self.default_button_input: str = config.get(
+            "default_button_input", "菜单-help"
+        )  # 默认按钮数据
 
     @filter.command("按钮", alias={"button"})
     async def on_command(self, event: AiocqhttpMessageEvent, input: str | None = None):
         """发按钮，input为按钮数据，格式为：按钮文本-按钮回调/n按钮文本-按钮回调"""
         # 默认按钮数据
         if not input:
-            input = "别按:我是可爱小南梁~ (≧▽≦)"
+            input = self.default_button_input
 
         # 处理输入数据
         input = input.replace("，", ",")
+        input = input.replace("～", "~")
 
-         # 录入按钮信息
+        # 录入按钮信息
         buttons_info: list[list[dict]] = []
 
         for line in input.split("|"):  # 按行分割
             line_buttons: list[dict] = []
 
             for element in line.split(","):  # 按逗号分割每行的按钮
-                element = element.strip()  # 去除多余的空格
-
-                if "-" in element:  # 回调按钮格式
-                    label, callback = element.split("-", 1)
-                    line_buttons.append({"label": label.strip(), "callback": callback.strip()})
-                elif "~" in element:  # 链接按钮格式
+                if "~" in element:  # 链接按钮格式
                     label, link = element.split("~", 1)
-                    line_buttons.append({"label": label.strip(), "link": link.strip()})
+                    line_buttons.append({"label": label, "link": link})
+                elif "-" in element:  # 回调按钮格式
+                    label, callback = element.split("-", 1)
+                    line_buttons.append({"label": label, "callback": callback})
                 else:
                     yield event.plain_result(f"无效的按钮格式: {element}")
                     return
 
             buttons_info.append(line_buttons)
+            print(buttons_info)
 
         client = event.bot
         group_id = event.get_group_id()
@@ -182,7 +187,7 @@ class ButtonPlugin(Star):
                 "2": {
                     "1": {
                         "1": buttons_data_,
-                        "2": "2936169201",
+                        "2": "1145140000",
                     }
                 },
                 "3": 1,
@@ -215,13 +220,23 @@ class ButtonPlugin(Star):
         payload = {"cmd": "MessageSvc.PbSendMsg", "data": hex_string}
         await client.api.call_action("send_packet", **payload)
 
-    @staticmethod
-    def _make_button(button_info: dict) -> dict:
+    def _make_button(self, button_info: dict) -> dict:
         """制作按钮"""
         label = button_info.get("label", "").strip()
         clicked_text = button_info.get("clicked_text", "").strip()
         link = button_info.get("link")
         callback = button_info.get("callback")
+
+        if "0" in self.button_style:
+            button_style = 0
+        elif "1" in self.button_style:
+            button_style = 1
+        elif "2" in self.button_style:
+            button_style = random.choice([0, 1])
+        elif "3" in self.button_style and link:
+            button_style = 1
+        else:
+            button_style = 1
 
         # 构建基础消息结构
         button_data = {
@@ -229,7 +244,7 @@ class ButtonPlugin(Star):
             "render_data": {
                 "label": label,  # 按钮文本
                 "visited_label": clicked_text,  # 点击后的文本
-                "style": random.choice([0, 1]),  # 按钮样式
+                "style": button_style,  # 按钮样式
                 **button_info.get("QQBot", {}).get(
                     "render_data", {}
                 ),  # 扩展 QQBot 的 render_data 属性

@@ -1,0 +1,18 @@
+{
+    "button_style": {
+        "description": "按钮样式",
+        "type": "string",
+        "options": [
+            "0.全部不加深",
+            "1.全部加深",
+            "2.随机加深",
+            "3.链接加深"
+        ],
+        "default": "全部加深"
+    },
+    "default_button_input": {
+        "description": "默认按钮",
+        "type": "string",
+        "default": "插件-plugin, 文转图-t2i, 文转音-tts|函数工具-tool ls, 人格-persona list, LLM-llm|服务商-provider, 模型-model|对话列表-ls, 对话记录-history, 重置会话-reset"
+    }
+}
