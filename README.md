@@ -94,7 +94,7 @@ astrbot_plugin_buttons插件会在消息发送前，自动将消息中的按钮�
 
 ### 示例图
 
-[6de3babc31643ab4c0469fa3c6997f5](https://github.com/user-attachments/assets/216f9961-bfbc-4e50-9500-d17a7f99d8da)
+![6de3babc31643ab4c0469fa3c6997f5](https://github.com/user-attachments/assets/216f9961-bfbc-4e50-9500-d17a7f99d8da)
 
 ## 🤝 TODO
 
