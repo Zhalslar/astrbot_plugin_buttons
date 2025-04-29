@@ -91,7 +91,7 @@ class MyPlugin(Star):
         yield event.plain_result(f"{buttons}")
 ```
 
-astrbot_plugin_buttons插件会在消息发送前，自动将消息中的按钮字典buttons转化成字典来发送
+astrbot_plugin_buttons插件会在消息发送前，自动将消息中的按钮字典buttons转化成按钮数据包来发送
 
 ### 示例图
 
