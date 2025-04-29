@@ -56,13 +56,13 @@ git clone https://github.com/Zhalslar/astrbot_plugin_buttons
 多个按钮请用逗号隔开（中文逗号和英文逗号都可以）
 
 ```plaintext
-/按钮 点我-我是笨蛋，彩蛋-我是小南娘，B站~https://www.bilibili.com/
+/按钮 点我-我是笨蛋，彩蛋-我是小南娘，B站~https://www.bilibili.com
 ```
 
 多行按钮请用|隔开
 
 ```plaintext
-/按钮 点我-我是笨蛋|彩蛋-我是小南娘，B站~https://www.bilibili.com/
+/按钮 点我-我是笨蛋|彩蛋-我是小南娘，B站~https://www.bilibili.com
 ```
 
 ### 其他插件调用示例
@@ -84,7 +84,7 @@ class MyPlugin(Star):
                 ],
                 [
                     {"label": "点她", "callback": "看看腿"},
-                    {"label": "点你", "link": "看看玉足"},
+                    {"label": "B站", "link": "https://www.bilibili.com"},
                 ],
             ],
         }
