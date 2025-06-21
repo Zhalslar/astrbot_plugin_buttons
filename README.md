@@ -39,7 +39,36 @@ git clone https://github.com/Zhalslar/astrbot_plugin_buttons
 
 ### 指令调用
 
-打开"data\plugin_data\astrbot_plugin_buttons\buttons_data.json", 按照模板添加按钮数据，键名为按钮名称，键值为按钮内容，键名会被注册成命令来触发这个按钮, 插件默认提供了个模版，效果如下
+打开"data\plugin_data\astrbot_plugin_buttons\buttons_data.json", 按照模板添加按钮数据，键名为按钮名称，键值为按钮内容，键名会被注册成命令来触发这个按钮，模版如下
+
+```bash
+{
+    "菜单": [
+        [
+            {"label": "服务商", "callback": "provider"},
+            {"label": "模型", "callback": "model"},
+            {"label": "插件", "callback": "plugin ls"}
+        ],
+        [
+            {"label": "更新面板","callback": "dashboard_updata"},
+            {"label": "文转图","callback": "t2i"},
+            {"label": "文转音","callback": "tts"
+            }
+        ],
+        [
+            {"label": "函数工具","callback": "tool ls"},
+            {"label": "人格","callback": "persona list"},
+            {"label": "LLM","callback": "llm"}
+        ],
+        [
+            {"label": "对话列表","callback": "ls"},
+            {"label": "对话记录","callback": "history"},
+            {"label": "重置会话","callback": "reset"}
+        ]
+    ]
+}
+
+```
 
 ![download](https://github.com/user-attachments/assets/0bcb07e3-b409-42ff-8848-9d510c0d6e08)
 
