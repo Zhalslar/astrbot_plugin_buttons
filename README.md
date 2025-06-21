@@ -39,7 +39,10 @@ git clone https://github.com/Zhalslar/astrbot_plugin_buttons
 
 ### 指令调用
 
-打开"data\plugin_data\astrbot_plugin_buttons\buttons_data.json", 按照模板添加按钮数据，键名为按钮名称，键值为按钮内容，键名会被注册成命令来触发这个按钮。
+打开"data\plugin_data\astrbot_plugin_buttons\buttons_data.json", 按照模板添加按钮数据，键名为按钮名称，键值为按钮内容，键名会被注册成命令来触发这个按钮, 插件默认提供了个模版，效果如下
+
+![download](https://github.com/user-attachments/assets/0bcb07e3-b409-42ff-8848-9d510c0d6e08)
+
 
 ### 外部插件调用示例
 
@@ -100,10 +103,50 @@ class MyPlugin(Star):
             return
 ```
 
-astrbot_plugin_buttons插件会在消息发送前，自动将消息中的按钮字典buttons转化成字典来发送
+另外还提供了两个快捷函数，方便简化按钮结构，但是不支持更多自定义属性
 
-### 示例图
+```bash
+ async def send_callback_button(
+        self,
+        client: CQHttp,
+        buttons: dict[str, str],
+        group_id: Union[int, str, None] = None,
+        user_id: Union[int, str, None] = None,
+        per_row: int = 3,
+    ) -> None:
+        """
+        快速发送 callback 类型按钮，仅需提供 label → callback 映射。
 
+        示例：
+            await send_callback_button(client, {
+                "模型": "model",
+                "插件": "plugin",
+                "重置": "reset"
+            }, group_id=123)
+        """
+        keyboard = self._dict_to_keyboard(buttons, field="callback", per_row=per_row)
+        await self.send_button(client, keyboard, group_id=group_id, user_id=user_id)
+
+    async def send_link_button(
+        self,
+        client: CQHttp,
+        buttons: dict[str, str],
+        group_id: Union[int, str, None] = None,
+        user_id: Union[int, str, None] = None,
+        per_row: int = 3,
+    ) -> None:
+        """
+        快速发送 link 类型按钮，仅需提供 label → URL 映射。
+
+        示例：
+            await send_link_buttons(client, {
+                "官网": "https://example.com",
+                "文档": "https://docs.example.com"
+            }, group_id=123)
+        """
+        keyboard = self._dict_to_keyboard(buttons, field="link", per_row=per_row)
+        await self.send_button(client, keyboard, group_id=group_id, user_id=user_id)
+```
 
 
 ## 👥 贡献指南
