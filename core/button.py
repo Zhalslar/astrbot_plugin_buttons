@@ -142,10 +142,10 @@ class ButtonBuilder:
                 return 1 if link else 0
             case "5":
                 return (
-                    1
+                    0
                     if (row % 2 == 0 and col % 2 == 1)
                     or (row % 2 == 1 and col % 2 == 0)
-                    else 0
+                    else 1
                 )
             case _:
                 return 1

@@ -29,6 +29,19 @@ class ButtonPlugin(Star):
         self.storage = ButtonStorage(buttons_data_file)
         self.builder = ButtonBuilder(config)  # type: ignore
 
+    @filter.command("按钮", alias={"button", "bt"})
+    async def button_command(
+        self, event: AiocqhttpMessageEvent, label="点击", callback="我是笨蛋"
+    ):
+        "发送一个简单的回调按钮"
+        await self.send_callback_button(
+            client=event.bot,
+            buttons={label: callback},
+            group_id=int(event.get_group_id()),
+            user_id=int(event.get_sender_id()),
+        )
+        event.stop_event()
+
     @filter.event_message_type(filter.EventMessageType.ALL)
     async def on_message(self, event: AiocqhttpMessageEvent):
         """监听消息，触发按钮"""
