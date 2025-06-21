@@ -52,8 +52,7 @@ git clone https://github.com/Zhalslar/astrbot_plugin_buttons
         [
             {"label": "更新面板","callback": "dashboard_updata"},
             {"label": "文转图","callback": "t2i"},
-            {"label": "文转音","callback": "tts"
-            }
+            {"label": "文转音","callback": "tts"}
         ],
         [
             {"label": "函数工具","callback": "tool ls"},
