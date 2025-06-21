@@ -50,18 +50,18 @@ git clone https://github.com/Zhalslar/astrbot_plugin_buttons
             {"label": "插件", "callback": "plugin ls"}
         ],
         [
-            {"label": "更新面板","callback": "dashboard_updata"},
-            {"label": "文转图","callback": "t2i"},
-            {"label": "文转音","callback": "tts"}
+            {"label": "更新面板","callback": "dashboard_updata", "allow_users": [114514]},
+            {"label": "文转图","callback": "t2i", "allow_users": [114514]},
+            {"label": "文转音","callback": "tts", "allow_users": [114514]}
         ],
         [
             {"label": "函数工具","callback": "tool ls"},
-            {"label": "人格","callback": "persona list"},
-            {"label": "LLM","callback": "llm"}
+            {"label": "人格","callback": "persona list", "allow_users": [114514, 123456]},
+            {"label": "LLM","callback": "llm", "allow_users": [114514]}
         ],
         [
-            {"label": "对话列表","callback": "ls"},
-            {"label": "对话记录","callback": "history"},
+            {"label": "对话列表","callback": "ls 1", "enter": false},
+            {"label": "对话记录","callback": "history 1", "enter": false},
             {"label": "重置会话","callback": "reset"}
         ]
     ]
