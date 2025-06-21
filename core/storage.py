@@ -18,7 +18,6 @@ class ButtonStorage:
         """
         self.json_path = json_path
         self._storage = self._load_or_create_file(json_path)
-        self._keys_set: set[str] = set(self._storage.keys())
 
     def _load_or_create_file(self, path: str) -> Dict[str, Any]:
         """
@@ -116,7 +115,7 @@ class ButtonStorage:
 
         :return: 当前所有键名集合
         """
-        return self._keys_set
+        return set(self._storage.keys())
 
     def __getitem__(self, name: str) -> Any:
         """

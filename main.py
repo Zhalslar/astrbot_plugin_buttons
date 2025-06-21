@@ -17,7 +17,7 @@ from astrbot import logger
     "astrbot_plugin_buttons",
     "Zhalslar",
     "[仅napcat] 让QQ的野生bot也能发送按钮！",
-    "1.0.1",
+    "2.0.0",
     "https://github.com/Zhalslar/astrbot_plugin_buttons",
 )
 class ButtonPlugin(Star):

@@ -41,7 +41,7 @@ git clone https://github.com/Zhalslar/astrbot_plugin_buttons
 
 打开"data\plugin_data\astrbot_plugin_buttons\buttons_data.json", 按照模板添加按钮数据，键名为按钮名称，键值为按钮内容，键名会被注册成命令来触发这个按钮。
 
-### 外部插件插件调用示例
+### 外部插件调用示例
 
 ```bash
 class MyPlugin(Star):

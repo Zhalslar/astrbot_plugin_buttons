@@ -57,10 +57,10 @@ class ButtonBuilder:
         for row_idx, row in enumerate(keyboard):
             rendered_row = []
             for col_idx, info in enumerate(row):
-                btn = self._build_button(info, row_idx, col_idx)
-                if btn:
+                if btn := self._build_button(info, row_idx, col_idx):
                     rendered_row.append(btn)
-            result.append(rendered_row)
+            if rendered_row:
+                result.append(rendered_row)
         return result
 
     def _build_button(self, info: dict, row: int, col: int) -> dict:
