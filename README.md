@@ -16,8 +16,7 @@ _✨ [astrbot](https://github.com/AstrBotDevs/AstrBot) 发按钮插件 ✨_
 
 ## 🤝 介绍
 
-本插件利用napcat进行发包，实现了让野生bot发送QQ按钮，同时为其他astrbot插件提供易用的发按钮接口。
-支持的QQ版本：9.1.55~最新版（已知9.1.75不支持，可以往前回退或往后更新）
+本插件利用napcat进行发包，实现了让野生bot发送QQ按钮(QQ 9.1.55以上可见)，同时为其他astrbot插件提供易用的发按钮接口。
 
 > **warning**:  
 > 发送按钮被检测时容易被封号，请谨慎使用。<br>
@@ -33,76 +32,79 @@ _✨ [astrbot](https://github.com/AstrBotDevs/AstrBot) 发按钮插件 ✨_
 cd /AstrBot/data/plugins
 git clone https://github.com/Zhalslar/astrbot_plugin_buttons
 
-# 控制台重启AstrBot!
-
+# 控制台重启AstrBot
 ```
 
 ## ⌨️ 使用说明
 
 ### 指令调用
 
-发回调按钮（用短杠线）：按钮标签-回调文本
+打开"data\plugin_data\astrbot_plugin_buttons\buttons_data.json", 按照模板添加按钮数据，键名为按钮名称，键值为按钮内容，键名会被注册成命令来触发这个按钮。
 
-```plaintext
-/按钮 点我-我是笨蛋
-```
-
-发链接按钮（用波浪线）：按钮标签~链接
-
-```plaintext
-/按钮 B站~https://www.bilibili.com/
-```
-
-多个按钮请用逗号隔开（中文逗号和英文逗号都可以）
-
-```plaintext
-/按钮 点我-我是笨蛋，彩蛋-我是小南娘，B站~https://www.bilibili.com
-```
-
-多行按钮请用|隔开
-
-```plaintext
-/按钮 点我-我是笨蛋|彩蛋-我是小南娘，B站~https://www.bilibili.com
-```
-
-### 其他插件调用示例
+### 外部插件插件调用示例
 
 ```bash
 class MyPlugin(Star):
     def __init__(self, context: Context):
         super().__init__(context)
 
-    @filter.command("发送按钮")
-    async send_buttons(self, event: AstrMessageEvent):
-        """发送按钮"""
-        buttons = {
-            "type": "button",
-            "content": [
+    @filter.command("点歌")
+    async song(self, event: AstrMessageEvent):
+        """发送按钮进行选歌"""
+        keyboard = [
                 [
-                    {"label": "点我", "callback": "我是笨蛋"},
-                    {"label": "点他", "callback": "我是小男娘"},
+                    {
+                        "label": "第1行",            # 按钮文字
+                        "callback": "第1行第1个按钮", # 命令型按钮
+                        "light": True,              # 是否高亮按钮（默认根据配置选）
+                        "only_admin": True,         # 仅管理员可操作（默认 False）
+                        "allow_users": [123],       # 指定用户可操作（仅only_admin为False时生效）
+                        "allow_roles": [456],       # 指定身份组（仅频道可用）
+                        "enter": True,              # 点击是否直接发送（默认 True）
+                        "reply": False              # 是否引用回复（默认 False）
+                    },
+                    {
+                        "label": "第1行",
+                        "callback": "第1行第2个按钮"
+                    }
                 ],
                 [
-                    {"label": "点她", "callback": "看看腿"},
-                    {"label": "B站", "link": "https://www.bilibili.com"},
-                ],
-            ],
-        }
-        yield event.plain_result(f"{buttons}")
+                    {
+                        "label": "第2行",
+                        "link": "https://example.com"
+                    }
+                ]
+            ]
+        await self.send_button(event, keyboard)
+
+
+     async def send_button(
+        self, event: AiocqhttpMessageEvent, keyboard: list[list[dict[str, str]]]
+    ) -> str | None:
+        """调用buttons插件发送按钮"""
+        button_plugin = self.context.get_registered_star("astrbot_plugin_buttons")
+        if button_plugin.activated:
+            cls = button_plugin.star_cls
+            await cls.send_button(  # type: ignore
+                client=event.bot,
+                keyboard=keyboard,
+                group_id=event.get_group_id(),
+                user_id=event.get_sender_id(),
+            )
+        else:
+            await event.send(
+                event.plain_result(
+                    "astrbot_plugin_buttons插件未激活，无法调用按钮发送服务"
+                )
+            )
+            return
 ```
 
-astrbot_plugin_buttons插件会在消息发送前，自动将消息中的按钮字典buttons转化成按钮数据包来发送
+astrbot_plugin_buttons插件会在消息发送前，自动将消息中的按钮字典buttons转化成字典来发送
 
 ### 示例图
 
-![6de3babc31643ab4c0469fa3c6997f5](https://github.com/user-attachments/assets/3642866f-8686-4d6f-8a1d-0bc073869a00)
 
-
-## 🤝 TODO
-
-- [x] 支持发回调按钮
-- [x] 支持发链接按钮
-- [x] 为其他插件提供发按钮服务
 
 ## 👥 贡献指南
 
