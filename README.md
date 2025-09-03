@@ -16,7 +16,9 @@ _✨ [astrbot](https://github.com/AstrBotDevs/AstrBot) 发按钮插件 ✨_
 
 ## 🤝 介绍
 
-本插件利用napcat进行发包，实现了让野生bot发送QQ按钮(QQ 9.1.55以上可见)，同时为其他astrbot插件提供易用的发按钮接口。
+~~本插件利用napcat进行发包，实现了让野生bot发送QQ按钮(QQ 9.1.55以上可见)，同时为其他astrbot插件提供易用的发按钮接口~~
+
+按钮已在2025年6月23日全版本失效，本插件寿终正寝！
 
 > **warning**:  
 > 发送按钮被检测时容易被封号，请谨慎使用。<br>
@@ -70,7 +72,6 @@ git clone https://github.com/Zhalslar/astrbot_plugin_buttons
 ```
 
 ![download](https://github.com/user-attachments/assets/0bcb07e3-b409-42ff-8848-9d510c0d6e08)
-
 
 ### 外部插件调用示例
 
@@ -175,7 +176,6 @@ class MyPlugin(Star):
         keyboard = self._dict_to_keyboard(buttons, field="link", per_row=per_row)
         await self.send_button(client, keyboard, group_id=group_id, user_id=user_id)
 ```
-
 
 ## 👥 贡献指南
 
