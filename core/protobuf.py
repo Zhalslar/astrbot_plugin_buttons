@@ -24,7 +24,7 @@ class Protobuf:
             Protobuf._encode_bool(buffer, tag, value)
         elif isinstance(value, str):
             Protobuf._encode_string(buffer, tag, value)
-        elif isinstance(value, (bytes, bytearray)):
+        elif isinstance(value, (bytes, bytearray)):  # noqa: UP038
             Protobuf._encode_bytes(buffer, tag, value)
         elif isinstance(value, dict):
             nested = Protobuf.encode(value)

@@ -1,24 +1,20 @@
 import os
-from typing import Union
+
 from aiocqhttp import CQHttp
-from astrbot.api.star import Context, Star, register
+
+from astrbot import logger
+from astrbot.api.event import filter
+from astrbot.api.star import Context, Star
 from astrbot.core.config.astrbot_config import AstrBotConfig
 from astrbot.core.platform.sources.aiocqhttp.aiocqhttp_message_event import (
     AiocqhttpMessageEvent,
 )
-from astrbot.api.event import filter
 from astrbot.core.star.star_tools import StarTools
+
 from .core.button import ButtonBuilder
 from .core.storage import ButtonStorage
-from astrbot import logger
 
-@register(
-    "astrbot_plugin_buttons",
-    "Zhalslar",
-    "[仅napcat] 让QQ的野生bot也能发送按钮！",
-    "v2.0.0",
-    "https://github.com/Zhalslar/astrbot_plugin_buttons",
-)
+
 class ButtonPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
@@ -60,8 +56,8 @@ class ButtonPlugin(Star):
         self,
         client: CQHttp,
         keyboard: list[list[dict]],
-        group_id: Union[int, str, None] = None,
-        user_id: Union[int, str, None] = None,
+        group_id: int | str | None = None,
+        user_id: int | str | None = None,
     ) -> None:
         """
         通用按钮发送函数（供插件/模块调用，支持 Napcat）。
@@ -116,8 +112,8 @@ class ButtonPlugin(Star):
         self,
         client: CQHttp,
         buttons: dict[str, str],
-        group_id: Union[int, str, None] = None,
-        user_id: Union[int, str, None] = None,
+        group_id: int | str | None = None,
+        user_id: int | str | None = None,
         per_row: int = 3,
     ) -> None:
         """
@@ -137,8 +133,8 @@ class ButtonPlugin(Star):
         self,
         client: CQHttp,
         buttons: dict[str, str],
-        group_id: Union[int, str, None] = None,
-        user_id: Union[int, str, None] = None,
+        group_id: int | str | None = None,
+        user_id: int | str | None = None,
         per_row: int = 3,
     ) -> None:
         """

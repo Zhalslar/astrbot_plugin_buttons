@@ -27,15 +27,7 @@ _✨ [astrbot](https://github.com/AstrBotDevs/AstrBot) 发按钮插件 ✨_
 
 ## 📦 安装
 
-- 可以直接在astrbot的插件市场搜索astrbot_plugin_buttons，点击安装，耐心等待安装完成即可  
-
-```bash
-# 克隆仓库到插件目录
-cd /AstrBot/data/plugins
-git clone https://github.com/Zhalslar/astrbot_plugin_buttons
-
-# 控制台重启AstrBot
-```
+在astrbot的插件市场搜索astrbot_plugin_buttons，点击安装即可  
 
 ## ⌨️ 使用说明
 

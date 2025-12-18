@@ -1,5 +1,5 @@
 import json
-from typing import Dict, List, Optional, Any
+from typing import Any
 
 
 class ButtonStorage:
@@ -19,7 +19,7 @@ class ButtonStorage:
         self.json_path = json_path
         self._storage = self._load_or_create_file(json_path)
 
-    def _load_or_create_file(self, path: str) -> Dict[str, Any]:
+    def _load_or_create_file(self, path: str) -> dict[str, Any]:
         """
         尝试加载 JSON 文件，文件不存在时自动创建空字典文件。
 
@@ -27,7 +27,7 @@ class ButtonStorage:
         :return: 文件中加载的字典数据或空字典
         """
         try:
-            with open(path, "r", encoding="utf-8") as f:
+            with open(path, encoding="utf-8") as f:
                 data = json.load(f)
             if not isinstance(data, dict):
                 raise ValueError("配置文件内容必须是字典")
@@ -51,7 +51,7 @@ class ButtonStorage:
         self._storage[name] = value
         self.save()
 
-    def get(self, name: str) -> Optional[Any]:
+    def get(self, name: str) -> Any | None:
         """
         获取指定键对应的数据，找不到返回 None。
 
@@ -73,7 +73,7 @@ class ButtonStorage:
             return True
         return False
 
-    def all(self) -> Dict[str, Any]:
+    def all(self) -> dict[str, Any]:
         """
         获取所有键值对。
 
@@ -81,7 +81,7 @@ class ButtonStorage:
         """
         return self._storage
 
-    def names(self) -> List[str]:
+    def names(self) -> list[str]:
         """
         获取所有键名列表。
 
@@ -89,7 +89,7 @@ class ButtonStorage:
         """
         return list(self._storage.keys())
 
-    def get_first(self) -> Optional[Any]:
+    def get_first(self) -> Any | None:
         """
         获取存储中第一个键对应的值，如果为空返回 None。
         """
@@ -98,7 +98,7 @@ class ButtonStorage:
         first_key = next(iter(self._storage))
         return self._storage[first_key]
 
-    def save(self, path: Optional[str] = None) -> None:
+    def save(self, path: str | None = None) -> None:
         """
         保存当前存储数据到 JSON 文件。
 

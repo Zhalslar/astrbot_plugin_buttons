@@ -1,6 +1,7 @@
-name: astrbot_plugin_buttons # 这是你的插件的唯一识别名。
+name: astrbot_plugin_buttons
 display_name: QQ按钮
-desc: "[仅napcat] 让QQ的野生bot也能发送按钮！" # 插件简短描述
-version: v2.0.1 # 插件版本号。格式：v1.1.1 或者 v1.1
-author: Zhalslar # 作者
-repo: https://github.com/Zhalslar/astrbot_plugin_buttons # 插件的仓库地址
+desc: "[仅napcat] 让QQ的野生bot也能发送按钮！"
+help: 略
+version: v2.0.1
+author: Zhalslar
+repo: https://github.com/Zhalslar/astrbot_plugin_buttons

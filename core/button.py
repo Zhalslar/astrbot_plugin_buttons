@@ -1,5 +1,6 @@
-import uuid
 import random
+import uuid
+
 from .packet_utils import process_json
 from .protobuf import Protobuf
 
